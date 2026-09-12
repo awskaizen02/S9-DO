@@ -1,0 +1,33 @@
+
+docker network --help
+
+docker network create nw1
+
+docker run --name ngx5 -d nginx
+
+docker network connect nw1 ngx5
+
+docker run -d --name ngx6 --network nw1 nginx
+
+docker exec -it ngx5 ping ngx6
+
+docker network disconnect nw1 ngx5
+ # cannt able to ping b/w ngx5 ping ngx6
+ 
+docker network create --subnet 10.1.0.0/24 --gateway 10.1.0.1 nw2
+
+docker network inspect nw2 
+
+docker network create --subnet 10.100.0.0/16 --gateway 10.100.0.1 --ip-range=10.100.100.0/24 --driver=bridge --label=ntdemo nw3
+
+
+docker run -d --name ngx7 --network nw3 nginx
+
+docker network connect nw3 ngx6
+
+docker inspect ngx6
+
+docker exec -it ngx7
+apt update
+apt install -y iputils-ping
+ping ngx6

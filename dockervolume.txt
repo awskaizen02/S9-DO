@@ -1,0 +1,41 @@
+docker run -d -P nginx
+
+docker volume --help
+
+docker volume create <without_name>
+
+docker volume create vol1 <with_name>
+
+docker volume ls <to_list_all_volumne>
+
+docker volume prune <remove_unused_volumes_without name>
+
+docker volume rm vol1 <remove_unused_volumes_with name>
+
+docker volume inspect vol1 <to check the detail of volume>
+
+sudo -i
+cd /var/lib/docker/volumes/vol1/_data
+echo "WC to VOlume" > index.html 
+
+attach volume to container using -v or --mount
+
+to mount volume into container
+
+docker run --name ngx1 -v vol1:/usr/share/nginx/html:ro -d -P nginx
+docker run --name ngx2 -v vol1:/usr/share/nginx/html:ro -d -P nginx
+
+docker run --name ngx6 --mount  type=volume,src=vol1,dst=/usr/share/nginx/html -d -P nginx
+
+create folder and attach this as a volume to container
+
+mkdir demo
+cd demo
+and use $PWD to mount , if you want to mount with path then /home/duser/demo
+ 
+docker run --name ngx4 -v $PWD:/usr/share/nginx/html:ro -d -P nginx
+
+docker run --name ngx5 --mount type=bind,src=$PWD,dst=/usr/share/nginx/html -d -P nginx
+
+docker run --name ngx5 --mount type=bind,src=/home/duser/demo,dst=/usr/share/nginx/html -d -P nginx 
+
