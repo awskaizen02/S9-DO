@@ -1,0 +1,28 @@
+services:
+  web:
+    image: dockerpandian/web:10 
+    container_name: webserver
+    ports:
+      - "8080:80"
+    volumes:
+      - vol2:/usr/local/apache2/htdocs/
+    depends_on:
+      - db
+     
+  db:
+    image: mysql:8.0
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: demo
+      MYSQL_USER: demo
+      MYSQL_PASSWORD: demo123
+    volumes:
+      - vsql:/var/lib/mysql
+      
+volumes:
+  vol2:
+  vsql:
+    
+    
+    
