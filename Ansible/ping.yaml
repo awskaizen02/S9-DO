@@ -1,0 +1,7 @@
+---                       # as per YAML document need to provide in begining the file
+- name: connectivity test # Describes a play title
+  hosts: ub              # group of instance which we entered in hosts file
+  gather_facts: false     # collect information about managed hosts
+  tasks:                  # what task need to execute (provide multiple tasks)
+    - name: check all nores connectivity
+      ansible.builtin.ping: null

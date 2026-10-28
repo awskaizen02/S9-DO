@@ -1,0 +1,26 @@
+---
+- name: upgrade ubuntu vm
+  hosts: ub
+  become: true
+  tasks:
+    - name: Delete HTML file
+      ansible.builtin.file:
+        path: /var/www/html/index.html
+        state: absent
+    - name: set HTML new file
+      blockinfile:
+        create: true
+        path: /var/www/html/index.html
+        block: |
+          <!DOCTYPE html>   
+          <html>
+            <head>
+               <h1>Welcome to My Sample Page</h1>
+            </head>
+            </html>
+  handlers:
+    - name: restart apache
+      service:
+        name: apache2
+        state: restarted
+

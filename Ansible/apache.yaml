@@ -1,0 +1,12 @@
+---
+- name: Install webapp on Ubutu and Redhat
+  hosts: node
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Install apache2
+      ansible.builtin.package:
+        name: httpd
+        state: present
+        use: dnf
+

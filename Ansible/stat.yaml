@@ -1,0 +1,20 @@
+---
+- name: Validate folder is exists
+  hosts: ub
+  become: true
+  tasks:
+    - name: Validate folder is exists
+      ansible.builtin.stat:
+        path: "/test-folder"
+      register: test_dir_status
+
+    - name: Print message if folder exists
+      ansible.builtin.debug:
+        msg: "Folder is Available"
+      when: test_dir_status.stat.exists
+
+    - name: Print message if not folder exists
+      ansible.builtin.debug:
+        msg: "Folder is Not Available"
+      when: not test_dir_status.stat.exists
+

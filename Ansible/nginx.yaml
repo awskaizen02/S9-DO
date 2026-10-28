@@ -1,0 +1,25 @@
+---
+- name: upgrade ubuntu vm
+  hosts: ub
+  become: true
+  tasks:
+    - name: Install Nginx
+      ansible.builtin.package:
+        name: nginx
+        state: present
+        update_cache: yes
+      tags:
+        - packages
+    - name: Deploy index.html
+      ansible.builtin.copy:
+        src: web/
+        dest: /var/www/html/
+      notify: Reload Nginx
+      tags:
+        - content
+  handlers:
+    - name: Reload Nginx
+      service:
+        name: nginx
+        state: reloaded
+
